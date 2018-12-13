@@ -1,0 +1,46 @@
+TOP con FORWARD CHECKING
+/////////////////////////////////////////////////////////////////////////////////
+Para crear el ejecutable del programa y hacerlo funcionar:
+	por terminal: 
+			g++ -Wall -o myprog TOP.cpp
+			./myprog
+	usando makefile:
+			make
+
+Para eliminar el ejecutable:
+	por terminal:
+			rm -f myprog
+	usando makefile:
+			make clean
+
+///////////////////////////////////////////////////////////////////////////////
+consideraciones:
+	el programa recibe por defecto un archivo llamado input.txt
+
+	un ejemplo de input.txt se presenta a continuación y se adjunta en input.example.txt:
+
+n 6
+m 2
+tmax 17.0
+0.0000 0.0000 0
+0.0000 3.0000 5
+2.5000 4.0000 2
+2.5000 1.0000 9
+2.5000 -3.0000 8
+5.0000 3.0000 0
+
+	comentarios:
+		*n representa la cantidad de vértices del problema.
+		*m representa la cantidad de rutas del problema.
+		*tmax representa el tiempo máximo del problema.
+		*las demás lineas corresponden a las informaciones de los vértices:
+			posición en el eje x, posición en el eje y, puntaje de la estación.
+		*todas las rutas inician en el primer vértice y terminan en el último.
+		*cada vértice entre el inicio y el final es visitado a lo más una vez por alguna ruta.
+/////////////////////////////////////////////////////////////////////////////////
+hecho por:
+	nombre: gabriel guzmán morales
+	rol: 201360563-k
+	fecha: 14 / dic. / 2018
+	email: gdegooz@gmail.com
+/////////////////////////////////////////////////////////////////////////////////
