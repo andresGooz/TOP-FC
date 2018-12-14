@@ -1,3 +1,5 @@
+//gabriel andrés guzmán morales
+	//rol 201360563-k
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -9,7 +11,6 @@
 para compilar:		g++ TOP.cpp -o output -Wall
 para ejecutar: 		./output
 **/
-//hacer para que no se puedan realizar permutaciones que no sirvan como solución. por lo tanto hay que ir generando las permutaciones manualmente.
 using namespace std;
 bool maximo_encontrado;
 float tmax;
@@ -35,6 +36,8 @@ ej:
 input string a= "11";
 input string b= "01";
 output string c="100";
+
+fuente: https://www.geeksforgeeks.org/program-to-add-two-binary-strings/
 */
 string addBinary(string a, string b) 
 { 
@@ -71,12 +74,15 @@ string next_GREAT_string(string pop,list<string> rutas){
 			if (ruta[i]=='1')
 				unos[i]+=1;
 	string next_GREAT=pop;
+	//cuando es_buena=true es porque hemos encontrado una buena próxima iteración
 	bool es_buena=false;
 	do{
 		es_buena=true;
 		next_GREAT=addBinary(next_GREAT,"1");
+		//si string next_GREAT > max_instance entonces envía señal de vuelta atrás
 		if (next_GREAT > max_instance)
 			return limit_instance;
+		//verifica que no se visiten vértices ya visitados en otra ruta de esa instanciacion de rutas
 		for (int i=0; i<cant_estaciones-2;i++){
 			if (next_GREAT[i]=='1' && unos[i]==1)
 				es_buena=false;
@@ -85,6 +91,7 @@ string next_GREAT_string(string pop,list<string> rutas){
 		}
 		if (es_buena==false)
 			continue;
+		//verifica que los vértices de la ruta no estén en la lista tabu
 		for (auto string_ruta : tabu_list){
 			int n=count(string_ruta.begin(), string_ruta.end(), '1');
 			for (int i=0; (unsigned)i < string_ruta.size() ; i++)
@@ -131,6 +138,7 @@ void verificar(list<string> rutas){
 				puntaje += score_estaciones[l];
 				previo=l;
 			}
+			//verifica la factibilidad del camino
 			if (tiempo <= tmax){
 				local_puntajes[n_ruta]=puntaje;
 				local_sol.push_back(list_estaciones);
@@ -148,10 +156,12 @@ void verificar(list<string> rutas){
 		int sol=0;
 		for (int i=0; i < cant_rutas ; i++)
 			sol+=local_puntajes[i];
+		//si la solución es mejor que cualquier otra anteriormente encontrada entonces se actualiza la mejor solucion y su score
 		if (sol > score_solucion){
 			score_solucion= sol;
 			m_rutas= local_sol;
 		}
+		//si hemos encontrado el máximo posible entonces retornamos y enviamos señal de término
 		if (sol==sum_puntajes){
 			maximo_encontrado=true;
 			return;
@@ -180,7 +190,7 @@ void ALGORITMO()
 	while (quedan_instancias_pendientes==true)
 	{
 		if (instanciando)
-		{	//cout << "INS" << endl;
+		{	//cout << "INSTANCIANDO CON CEROS" << endl;
 			rutas.push_back(min_instance);
 			rutas_instanciadas+=1;
 			if (rutas_instanciadas == cant_rutas){
@@ -189,7 +199,7 @@ void ALGORITMO()
 			}
 		}
 		if (iterando)
-		{	//cout << "ITE" << endl;
+		{	//cout << "ITERANDO" << endl;
 			verificar(rutas);
 			if (maximo_encontrado==true)
 				return;
@@ -206,7 +216,7 @@ void ALGORITMO()
 			}					
 		}
 		if (back_track)
-		{	//cout << "BT" << endl;
+		{	//cout << "VUELTA ATRÁS" << endl;
 			rutas.pop_back();
 			rutas_instanciadas-=1;
 			if (rutas_instanciadas==0)
@@ -285,7 +295,7 @@ int main(){
 		cout << "NO HAY SOLUCION DE NINGUN TIPO" << endl;
 		return 0;	
 	}		
-	//AQUÍ YA TENDRÍAMOS LA SOLUCION
+	//AQUÍ YA TENDRÍAMOS LA SOLUCION. SOLO SE IMPRIMEN RESULTADOS
 	cout << score_solucion << endl;
 	list<list<int>>::iterator itr;
 	for (itr=m_rutas.begin(); itr != m_rutas.end(); itr++){
