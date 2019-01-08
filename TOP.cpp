@@ -1,5 +1,5 @@
 //gabriel andrés guzmán morales
-	//rol 201360563-k
+
 #include <iostream>
 #include <fstream>
 #include <string>
